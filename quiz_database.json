@@ -1,0 +1,16 @@
+{
+  "basic": [
+    {
+      "question": "What is a defect in Lean?",
+      "options": [
+        "Extra material",
+        "Wrong installation",
+        "Idle time"
+      ],
+      "answer": "Wrong installation"
+    }
+  ],
+  "practical": [],
+  "expert": [],
+  "perito": []
+}
