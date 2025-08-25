@@ -1,27 +1,35 @@
+document.getElementById("registrationForm").addEventListener("submit", function (e) {
+  e.preventDefault();
 
-document.getElementById('registrationForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const password = document.getElementById('password').value;
-    const email = document.getElementById('email').value;
-    const linkedin = document.getElementById('linkedin').value;
-    const followed = document.getElementById('followedLinkedin').checked;
+  const password = document.getElementById("password").value;
+  const followConfirmed = document.getElementById("followConfirmation").checked;
 
-    const validPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/.test(password);
-    if (!validPassword) {
-        document.getElementById('message').textContent = "Password must be at least 8 characters, include uppercase, lowercase, and a special character.";
-        return;
-    }
+  const passwordValid =
+    password.length >= 8 &&
+    /[A-Z]/.test(password) &&
+    /[a-z]/.test(password) &&
+    /[^A-Za-z0-9]/.test(password);
 
-    if (!followed) {
-        document.getElementById('message').textContent = "Please confirm you followed Pedro Penna on LinkedIn.";
-        return;
-    }
+  if (!passwordValid) {
+    alert("Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, and a special character.");
+    return;
+  }
 
-    // Simulate sending email to admin
-    const adminEmail = "pedro.penna@example.com";
-    const subject = "Lean Quiz Access Request";
-    const body = `User ${email} with LinkedIn ${linkedin} requested access to the quiz database.`;
-    window.location.href = `mailto:${adminEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  if (!followConfirmed) {
+    alert("Please confirm that you followed Pedro Penna on LinkedIn.");
+    return;
+  }
 
-    document.getElementById('message').textContent = "Request sent. Please wait for access approval.";
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const position = document.getElementById("position").value;
+  const company = document.getElementById("company").value;
+  const linkedin = document.getElementById("linkedin").value;
+
+  const mailtoLink = `mailto:pedro.penna@example.com?subject=Lean Quiz Access Request&body=Name: ${name}%0DEmail: ${email}%0DPosition: ${position}%0DCompany: ${company}%0DLinkedIn: ${linkedin}`;
+  window.location.href = mailtoLink;
+
+  console.log("Saving to CSV:", { name, email, position, company, linkedin });
+
+  window.location.href = "quiz.html";
 });
